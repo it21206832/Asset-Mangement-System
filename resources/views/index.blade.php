@@ -177,12 +177,12 @@
         <span class="count_bottom"><i class="green">4% </i> From last Week</span>
       </div>
       <div class="col-md-2 col-sm-4 tile_stats_count">
-        <span class="count_top"><i class="fa fa-clock-o"></i> Total Assets</span>
+        <span class="count_top"><i class="fa fa-clock-o"></i> Total Stocks</span>
         <div class="count">{{ $totalStockCount }}</div>
         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
       </div>
       <div class="col-md-2 col-sm-4 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Total Authorized or Verified Asset</span>
+        <span class="count_top"><i class="fa fa-user"></i> Total Authorized Asset</span>
         <div class="count green">{{ $totalVerifiedCount }}</div>
         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
       </div>
@@ -209,6 +209,23 @@
   
     <!-- Pie Chart for Asset Types -->
     <div class="col-md-6 col-sm-12">
+     <div class="bg-white">
+      <div class="x_title">
+        <h2>Stocks Types Distribution</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="col-md-12 col-sm-12">
+        <div>
+        <canvas id="stockTypePieChart" class="pie-chart"></canvas>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+
+      <!-- Pie Chart for Asset Types -->
+      <div class="col-md-6 col-sm-12">
      <div class="bg-white">
       <div class="x_title">
         <h2>Asset Types Distribution</h2>
@@ -296,6 +313,7 @@
     <!-- Chart.js -->
      <!-- <script src="{{ asset('assets/js/Chart.min.js') }}"></script>-->
      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     
     
     <!-- gauge.js -->
     <script src="{{ asset('assets/js/gauge.min.js') }}"></script>
@@ -336,57 +354,112 @@
 <script src="{{ asset('assets/js/custom.min.js') }}"></script>
 
 //pie chart
-
 <script>
-            // Get data from PHP
-            const labels = @json($labels);
-            const data = @json($data);
+    // Data for the first pie chart
+    const labels1 = @json($Slabels);
+    const data1 = @json($Sdata);     
 
-            // Create Pie Chart
-            const ctx = document.getElementById('assetTypePieChart').getContext('2d');
-            const assetTypePieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Quantity',
-                        data: data,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
+    // Data for the second pie chart
+    const labels2 = @json($Alabels); 
+    const data2 = @json($Adata);     
+
+    // Check if the data is correctly passed from PHP
+    console.log('First Chart Labels:', labels1);
+    console.log('First Chart Data:', data1);
+    console.log('Second Chart Labels:', labels2);
+    console.log('Second Chart Data:', data2);
+
+    // Get context for the first pie chart
+    const ctx1 = document.getElementById('stockTypePieChart').getContext('2d');
+    const stockTypePieChart = new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: labels1,
+            datasets: [{
+                label: 'Quantity',
+                data: data1,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
                 },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    return tooltipItem.label + ': ' + tooltipItem.raw;
-                                }
-                            }
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw;
                         }
                     }
                 }
-            });
-        </script>
+            }
+        }
+    });
+
+    // Get context for the second pie chart
+    const ctx2 = document.getElementById('assetTypePieChart').getContext('2d');
+    const anotherPieChart = new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: labels2,
+            datasets: [{
+                label: 'Quantity',
+                data: data2,
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
 
   </body>
 </html>
