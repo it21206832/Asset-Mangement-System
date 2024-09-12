@@ -38,6 +38,12 @@ class DashboardController extends Controller
         $Alabels = $assetData->pluck('item_type'); // Asset types
         $Adata = $assetData->pluck('asset_quantity'); // Corresponding quantities
 
-        return view('index', compact('totalStockCount','totalVerifiedCount','totalDispatchCount','totalInstalledCount', 'Slabels', 'Sdata','Alabels','Adata'));
+        // Fetch all assets with their details
+        $assets = Stock::select('allocation', 'item_type', 'quantity', 'status', 'damage')
+            ->whereIn('status', ['verified', 'authorized'])
+            ->get();
+
+
+        return view('index', compact('totalStockCount','totalVerifiedCount','totalDispatchCount','totalInstalledCount', 'Slabels', 'Sdata','Alabels','Adata','assets'));
     }
 }

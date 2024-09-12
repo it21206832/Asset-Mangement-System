@@ -27,6 +27,7 @@
 
     <!-- bootstrap-daterangepicker -->
     <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
     <!-- Custom Theme Style -->
     <link rel="stylesheet" href="{{ asset('assets/css/custom.min.css') }}">
@@ -169,134 +170,131 @@
 <!-- Page content -->
 <div class="right_col" role="main">
   <!-- Top tiles -->
-  <div class="row" style="display: inline-block;">
-    <div class="tile_count">
-      <div class="col-md-2 col-sm-4 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
-        <div class="count">2500</div>
-        <span class="count_bottom"><i class="green">4% </i> From last Week</span>
-      </div>
-      <div class="col-md-2 col-sm-4 tile_stats_count">
-        <span class="count_top"><i class="fa fa-clock-o"></i> Total Stocks</span>
-        <div class="count">{{ $totalStockCount }}</div>
-        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
-      </div>
-      <div class="col-md-2 col-sm-4 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Total Authorized Asset</span>
-        <div class="count green">{{ $totalVerifiedCount }}</div>
-        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-      </div>
-      <div class="col-md-2 col-sm-4 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Total Dispatch Assets</span>
-        <div class="count">{{ $totalDispatchCount }}</div>
-        <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
-      </div>
-      <div class="col-md-2 col-sm-4 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> IT Installation Assets</span>
-        <div class="count">{{ $totalInstalledCount}}</div>
-        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-      </div>
-      <div class="col-md-2 col-sm-4 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Branch Assets</span>
-        <div class="count">7,325</div>
-        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-      </div>
+  <div class="card">
+    <div class="card-body">
+        <div class="row" style="display: inline-block;">
+            <div class="tile_count">
+                <div class="col-md-2 col-sm-4 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
+                    <div class="count">2500</div>
+                    <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+                </div>
+                <div class="col-md-2 col-sm-4 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-clock-o"></i> Total Stocks</span>
+                    <div class="count">{{ $totalStockCount }}</div>
+                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
+                </div>
+                <div class="col-md-2 col-sm-4 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> Total Authorized Asset</span>
+                    <div class="count green">{{ $totalVerifiedCount }}</div>
+                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                </div>
+                <div class="col-md-2 col-sm-4 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> Total Dispatch Assets</span>
+                    <div class="count">{{ $totalDispatchCount }}</div>
+                    <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+                </div>
+                <div class="col-md-2 col-sm-4 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> IT Installation Assets</span>
+                    <div class="count">{{ $totalInstalledCount}}</div>
+                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+
   <!-- /Top tiles -->
 
-  <div class="row">
+
   
-    <!-- Pie Chart for Asset Types -->
+  <div class="row">
+    <!-- Card for Stocks Types Distribution -->
     <div class="col-md-6 col-sm-12">
-     <div class="bg-white">
-      <div class="x_title">
-        <h2>Stocks Types Distribution</h2>
-        <div class="clearfix"></div>
-      </div>
-      <div class="col-md-12 col-sm-12">
-        <div>
-        <canvas id="stockTypePieChart" class="pie-chart"></canvas>
+        <div class="card">
+            <div class="card-body">
+                <div class="x_title">
+                    <h2>Stocks Types Distribution</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <div>
+                        <canvas id="stockTypePieChart" class="pie-chart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
     </div>
 
-
-
-      <!-- Pie Chart for Asset Types -->
-      <div class="col-md-6 col-sm-12">
-     <div class="bg-white">
-      <div class="x_title">
-        <h2>Asset Types Distribution</h2>
-        <div class="clearfix"></div>
-      </div>
-      <div class="col-md-12 col-sm-12">
-        <div>
-        <canvas id="assetTypePieChart" class="pie-chart"></canvas>
-        </div>
-      </div>
-    </div>
-    </div>
-
+    <!-- Card for Asset Types Distribution -->
     <div class="col-md-6 col-sm-12">
-  <div class="bg-white">
-    <div class="x_title">
-      <h2> Depriciation of Assets </h2>
-      <div class="clearfix"></div>
+        <div class="card">
+            <div class="card-body">
+                <div class="x_title">
+                    <h2>Asset Types Distribution</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <div>
+                        <canvas id="assetTypePieChart" class="pie-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div class="col-md-12 col-sm-12">
-      <!-- Electronics Category with Damage -->
-      <div>
-        <p>Electronics</p>
-        <div class="progress progress_sm">
-          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="30" aria-valuenow="30" style="width: 30%;"></div> <!-- Total damage: 3 out of 10 (30%) -->
-        </div>
-      </div>
 
-      <!-- Furniture Category with Damage -->
-      <div>
-        <p>Furniture</p>
-        <div class="progress progress_sm">
-          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="0" aria-valuenow="0" style="width: 0%;"></div> <!-- Total damage: 0 out of 35 (0%) -->
-        </div>
-      </div>
+   
+<div class="row">
+    <!-- Card for Branch Asset Distribution -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="x_title">
+                    <h2>Branch Asset Distribution</h2>
+                    <div class="clearfix"></div>
+                </div>
 
-      <!-- Stationery Category with Damage -->
-      <div>
-        <p>Stationery</p>
-        <div class="progress progress_sm">
-          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50" aria-valuenow="50" style="width: 50%;"></div> <!-- Total damage: 5 out of 10 (50%) -->
+                <!-- DataTables Initialization -->
+                <table id="assetsTable" class="display table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Branch</th>
+                            <th>Item Type</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                            <th>Damage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($assets as $asset)
+                        <tr>
+                            <td>{{ $asset->allocation }}</td>
+                            <td>{{ $asset->item_type }}</td>
+                            <td>{{ $asset->quantity }}</td>
+                            <td>{{ $asset->status }}</td>
+                            <td>{{ $asset->damage }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
-
-      <!-- Vehicle Category with Damage -->
-      <div>
-        <p>Vehicle</p>
-        <div class="progress progress_sm">
-          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="20" aria-valuenow="20" style="width: 20%;"></div> <!-- Total damage: 1 out of 5 (20%) -->
-        </div>
-      </div>
     </div>
-  </div>
 </div>
-  </div>
-</div>
+
+  
+
 
         <!-- /page content -->
 
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-      </div>
+
+
+    
+</div>
    
-    </div>
+</div>
 
     <!-- jQuery -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
@@ -313,7 +311,7 @@
     <!-- Chart.js -->
      <!-- <script src="{{ asset('assets/js/Chart.min.js') }}"></script>-->
      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-     
+     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script> 
     
     <!-- gauge.js -->
     <script src="{{ asset('assets/js/gauge.min.js') }}"></script>
@@ -350,16 +348,20 @@
 <script src="{{ asset('assets/js/moment.min.js') }}"></script>
 <script src="{{ asset('assets/js/daterangepicker.js') }}"></script>
 
+<!-- DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
 <!-- Custom Theme Scripts -->
 <script src="{{ asset('assets/js/custom.min.js') }}"></script>
 
 //pie chart
 <script>
-    // Data for the first pie chart
+    // Data for the stock pie chart
     const labels1 = @json($Slabels);
     const data1 = @json($Sdata);     
 
-    // Data for the second pie chart
+    // Data for the asset pie chart
     const labels2 = @json($Alabels); 
     const data2 = @json($Adata);     
 
@@ -369,7 +371,7 @@
     console.log('Second Chart Labels:', labels2);
     console.log('Second Chart Data:', data2);
 
-    // Get context for the first pie chart
+    // Get context for the  stock pie chart
     const ctx1 = document.getElementById('stockTypePieChart').getContext('2d');
     const stockTypePieChart = new Chart(ctx1, {
         type: 'pie',
@@ -414,10 +416,10 @@
         }
     });
 
-    // Get context for the second pie chart
+    // Get context for the asset doughnut chart
     const ctx2 = document.getElementById('assetTypePieChart').getContext('2d');
-    const anotherPieChart = new Chart(ctx2, {
-        type: 'pie',
+    const anotherDoughnutChart = new Chart(ctx2, {
+        type: 'doughnut', // Change to 'doughnut'
         data: {
             labels: labels2,
             datasets: [{
@@ -451,12 +453,37 @@
                 tooltip: {
                     callbacks: {
                         label: function(tooltipItem) {
-                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                            // Show quantity number instead of percentage
+                            const label = tooltipItem.label || '';
+                            const value = tooltipItem.raw;
+                            return `${label}: ${value}`;
                         }
                     }
+                },
+                datalabels: {
+                    // Display numbers on the chart
+                    color: '#000',
+                    font: {
+                        weight: 'bold'
+                    },
+                    formatter: (value) => value, // Show the actual number
                 }
             }
         }
+    });
+    </script>
+
+//table
+<script>
+    $(document).ready(function() {
+        $('#assetsTable').DataTable({
+            "paging": true,       // Enable pagination
+            "searching": true,    // Enable search functionality
+            "ordering": true,     // Enable column sorting
+            "info": true,         // Show information about the table
+            "autoWidth": false,   // Disable automatic column width calculation
+            "lengthChange": true  // Allow users to change the number of rows displayed
+        });
     });
 </script>
 
