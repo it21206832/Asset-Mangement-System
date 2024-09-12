@@ -312,51 +312,48 @@
   }
   
 
-body {
-  font-family: Arial, sans-serif;
-}
-
-h1 {
-  text-align: center;
-  margin-top: 20px;
-}
-
+/*table*/
 .display {
   width: 100%;
   margin-top: 10px;
   border-collapse: collapse;
-  border: 1px solid #000000; /* Adds a border around the table */
+  border-color: #000; 
 }
 
-.display th {
+
+.display th , .td {
   padding: 8px;
   text-align: left;
-  border: 1px solid #ddd; /* Adds borders around table cells */
-}
-
-.display td{
-  padding: 8px;
-  text-align: left;
-  border: 1px solid  #ddd;
-}
-
-.display th {
-  background-color: #f4f4f4;
+  color: #ffffff;
+  background-color: #2d5e8a;
+  border-color: #000; 
 }
 
 
-
-.card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
-    padding: 2px;
+.display td {
+ 
+  color: #000000;
+ 
 }
 
-.card-body {
-  margin-top: 5px;
-  margin-bottom: 5px;
+/* Optional: Ensure no border on tbody if needed */
+.display tbody tr {
+  border: none; /* Remove border from table rows */
+}
+
+
+/*card*/
+  .card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin: 20px 0;
+      padding: 2px;
+  }
+
+  .card-body {
+    margin-top: 5px;
+    margin-bottom: 5px;
     padding: 10px;
-}
+  }

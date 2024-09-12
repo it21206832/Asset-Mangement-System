@@ -282,80 +282,73 @@
             </div>
         </div>
     </div>
+</div>  
+</div>  
 </div>
-
-  
-
-
-        <!-- /page content -->
-
-
-
-    
-</div>
-   
-</div>
+<!-- /page content -->
 
     <!-- jQuery -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 
+    <!-- popper.js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"></script>
+
     <!-- Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script> -->
+    
 
     <!-- FastClick -->
     <script src="{{ asset('assets/js/fastclick.js') }}"></script>
     <!-- NProgress -->
     <script src="{{ asset('assets/js/nprogress.js') }}"></script>
     <!-- Chart.js -->
-     <!-- <script src="{{ asset('assets/js/Chart.min.js') }}"></script>-->
-     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     
     <!-- gauge.js -->
     <script src="{{ asset('assets/js/gauge.min.js') }}"></script>
+
     <!-- Bootstrap Progressbar -->
-<script src="{{ asset('assets/js/bootstrap-progressbar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-progressbar.min.js') }}"></script>
 
-<!-- iCheck -->
-<script src="{{ asset('assets/js/icheck.min.js') }}"></script>
+    <!-- iCheck -->
+    <script src="{{ asset('assets/js/icheck.min.js') }}"></script>
 
-<!-- Skycons -->
-<script src="{{ asset('assets/js/skycons.js') }}"></script>
+    <!-- Skycons -->
+    <script src="{{ asset('assets/js/skycons.js') }}"></script>
 
-<!-- Flot -->
-<script src="{{ asset('assets/js/jquery.flot.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.flot.pie.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.flot.time.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.flot.stack.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.flot.resize.js') }}"></script>
+    <!-- Flot -->
+    <script src="{{ asset('assets/js/jquery.flot.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.flot.pie.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.flot.time.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.flot.stack.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.flot.resize.js') }}"></script>
 
-<!-- Flot Plugins -->
-<script src="{{ asset('assets/js/jquery.flot.orderBars.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.flot.spline.min.js') }}"></script>
-<script src="{{ asset('assets/js/curvedLines.js') }}"></script>
+    <!-- Flot Plugins -->
+    <script src="{{ asset('assets/js/jquery.flot.orderBars.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.flot.spline.min.js') }}"></script>
+    <script src="{{ asset('assets/js/curvedLines.js') }}"></script>
 
-<!-- DateJS -->
-<script src="{{ asset('assets/js/date.js') }}"></script>
+    <!-- DateJS -->
+    <script src="{{ asset('assets/js/date.js') }}"></script>
 
-<!-- JQVMap -->
-<script src="{{ asset('assets/js/jquery.vmap.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.vmap.world.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.vmap.sampledata.js') }}"></script>
+    <!-- JQVMap -->
+    <script src="{{ asset('assets/js/jquery.vmap.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.vmap.world.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.vmap.sampledata.js') }}"></script>
 
-<!-- Bootstrap Daterangepicker -->
-<script src="{{ asset('assets/js/moment.min.js') }}"></script>
-<script src="{{ asset('assets/js/daterangepicker.js') }}"></script>
+    <!-- Bootstrap Daterangepicker -->
+    <script src="{{ asset('assets/js/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/js/daterangepicker.js') }}"></script>
 
-<!-- DataTables JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
-<!-- Custom Theme Scripts -->
-<script src="{{ asset('assets/js/custom.min.js') }}"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
 
-//pie chart
+
 <script>
     // Data for the stock pie chart
     const labels1 = @json($Slabels);
@@ -370,107 +363,118 @@
     console.log('First Chart Data:', data1);
     console.log('Second Chart Labels:', labels2);
     console.log('Second Chart Data:', data2);
+    
 
-    // Get context for the  stock pie chart
-    const ctx1 = document.getElementById('stockTypePieChart').getContext('2d');
-    const stockTypePieChart = new Chart(ctx1, {
-        type: 'pie',
-        data: {
-            labels: labels1,
-            datasets: [{
-                label: 'Quantity',
-                data: data1,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right',
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            return tooltipItem.label + ': ' + tooltipItem.raw;
-                        }
+// Get context for the stock pie chart
+const ctx1 = document.getElementById('stockTypePieChart').getContext('2d');
+const stockTypePieChart = new Chart(ctx1, {
+    type: 'pie',
+    data: {
+        labels: labels1,
+        datasets: [{
+            label: 'Quantity',
+            data: data1,
+            backgroundColor: [
+              "#455C73", 
+              "#483D8B", 
+              "#191970", 
+              "#000080", 
+              "#002366"
+            ],
+            borderColor: [
+              "#455C73", 
+              "#483D8B", 
+              "#191970", 
+              "#000080", 
+              "#002366"
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'right',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return tooltipItem.label + ': ' + tooltipItem.raw;
                     }
+                }
+            },
+            datalabels: {
+                color: '#fff',
+                formatter: (value, context) => {
+                    return  `${value}%`;
+                },
+                anchor: 'center',
+                align: 'center',
+                font: {
+                    weight: 'bold'
                 }
             }
         }
-    });
+    },
+    plugins: [ChartDataLabels] // Add the datalabels plugin here
+});
 
-    // Get context for the asset doughnut chart
-    const ctx2 = document.getElementById('assetTypePieChart').getContext('2d');
-    const anotherDoughnutChart = new Chart(ctx2, {
-        type: 'doughnut', // Change to 'doughnut'
-        data: {
-            labels: labels2,
-            datasets: [{
-                label: 'Quantity',
-                data: data2,
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right',
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            // Show quantity number instead of percentage
-                            const label = tooltipItem.label || '';
-                            const value = tooltipItem.raw;
-                            return `${label}: ${value}`;
-                        }
+// Get context for the asset doughnut chart
+const ctx2 = document.getElementById('assetTypePieChart').getContext('2d');
+const assetTypePieChart = new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+        labels: labels2,
+        datasets: [{
+            label: 'Quantity',
+            data: data2,
+            backgroundColor: [
+              "#36A2EB", 
+              "#87CEEB", 
+              "#4169E1", 
+              "#4682B4", 
+              "#1E90FF"
+            ],
+            borderColor: [
+              "#36A2EB", 
+              "#87CEEB", 
+              "#4169E1", 
+              "#4682B4", 
+              "#1E90FF"
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'right',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        return tooltipItem.label + ': ' + tooltipItem.raw;
                     }
+                }
+            },
+            datalabels: {
+                color: '#fff',
+                formatter: (value, context) => {
+                    return value;
                 },
-                datalabels: {
-                    // Display numbers on the chart
-                    color: '#000',
-                    font: {
-                        weight: 'bold'
-                    },
-                    formatter: (value) => value, // Show the actual number
+                anchor: 'center',
+                align: 'center',
+                font: {
+                    weight: 'bold'
                 }
             }
         }
-    });
+    },
+    plugins: [ChartDataLabels] // Add the datalabels plugin here
+});
+
     </script>
 
 //table

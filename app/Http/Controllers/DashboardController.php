@@ -14,9 +14,10 @@ class DashboardController extends Controller
          // Fetch total count of assets with status 'verified' or 'authorized'
         $totalVerifiedCount = Stock::whereIn('status', ['verified', 'authorized'])->sum('quantity');
 
-        
+         // Fetch total count of assets allocation
         $totalDispatchCount = Stock::whereIn('allocation', ['IT', 'HR'])->sum('quantity');
 
+        // Fetch total count of assets installation(IT)
         $totalInstalledCount = Stock::whereIn('installation', ['yes'])->sum('quantity');                   
 
 
