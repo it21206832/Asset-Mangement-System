@@ -170,40 +170,56 @@
 <!-- Page content -->
 <div class="right_col" role="main">
   <!-- Top tiles -->
-  <div class="card">
-    <div class="card-body">
+  
         <div class="row" style="display: inline-block;">
             <div class="tile_count">
+              <div class="col-md-2 col-sm-4 tile_stats_count">
+                  <span class="count_top"><i class="fa fa-users" style="color: blue; font-size: 20px;"></i> 
+                  <span style="color: blue; font-size: 18px; font-weight: bold;">Total Users</span>
+                  <div class="count">{{ $totalUserCount }}</div> <!-- Display total user count here -->
+                  <span class="count_bottom">
+                  <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}"><i class="fa {{ $percentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i>{{ abs($percentageChange) }}%</i> From last Week
+                 </span>
+               </div>
                 <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
-                    <div class="count">2500</div>
-                    <span class="count_bottom"><i class="green">4% </i> From last Week</span>
-                </div>
-                <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-clock-o"></i> Total Stocks</span>
+                    <span class="count_top"><i class="fa fa-archive" style="color: brown; font-size: 20px;"></i> 
+                    <span style="color: brown; font-size: 18px; font-weight: bold;">Total Stocks</span>
                     <div class="count">{{ $totalStockCount }}</div>
-                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
+                    <span class="count_bottom">
+                      <i class="{{ $stockPercentageChange >= 0 ? 'green' : 'red' }}">
+                      <i class="fa {{ $stockPercentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i>{{ abs($stockPercentageChange) }}% </i> From last Week 
+                    </span>
                 </div>
                 <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> Total Authorized Asset</span>
+                    <span class="count_top"><i class="fa fa-shield" style="color: green; font-size: 20px;"></i> 
+                    <span style="color: green; font-size: 18px; font-weight: bold;">Authorized Asset</span>
                     <div class="count green">{{ $totalVerifiedCount }}</div>
-                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                    <span class="count_bottom"> 
+                      <i class="{{ $verifiedPercentageChange >= 0 ? 'green' : 'red' }}">
+                      <i class="fa {{ $verifiedPercentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i> {{ abs($verifiedPercentageChange) }}%</i> From last Week
+                    </span>
                 </div>
                 <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> Total Dispatch Assets</span>
+                    <span class="count_top"><i class="fa fa-truck" style="color: orange; font-size: 20px;"></i> 
+                    <span style="color: orange; font-size: 18px; font-weight: bold;">Dispatch Assets</span>
                     <div class="count">{{ $totalDispatchCount }}</div>
-                    <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+                    <span class="count_bottom">
+                      <i class="{{ $dispatchPercentageChange >= 0 ? 'green' : 'red' }}">
+                     <i class="fa {{ $dispatchPercentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i> {{ abs($dispatchPercentageChange) }}%</i> From last Week
+                   </span>
                 </div>
                 <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> IT Installation Assets</span>
+                    <span class="count_top"><i class="fa fa-desktop" style="color: tomato; font-size: 20px;"></i> 
+                    <span style="color: tomato; font-size: 18px; font-weight: bold;"> IT Assets</span>
                     <div class="count">{{ $totalInstalledCount}}</div>
-                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                    <span class="count_bottom">
+                      <i class="{{ $installedPercentageChange >= 0 ? 'green' : 'red' }}">
+                      <i class="fa {{ $installedPercentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i> {{ abs($installedPercentageChange) }}%</i> From last Week
+                    </span>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
+ 
   <!-- /Top tiles -->
 
 
@@ -244,6 +260,21 @@
     </div>
 </div>
 
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="x_title">
+                <h2> Comparison of Stocks, Users, and Authorized Assets</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <div>
+                    <canvas id="lineChart" class="line-chart" width="100" height="33"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
    
 <div class="row">
@@ -476,6 +507,74 @@ const assetTypePieChart = new Chart(ctx2, {
 });
 
     </script>
+
+<script>
+   // Extract data for the three lines
+const line1Labels = @json($line1Data->pluck('date'));
+const line1Data = @json($line1Data->pluck('total'));
+const line2Data = @json($line2Data->pluck('total'));
+const line3Data = @json($line3Data->pluck('total'));
+
+// Set up the line chart
+const ctxLine = document.getElementById('lineChart').getContext('2d');
+const lineChart = new Chart(ctxLine, {
+    type: 'line',
+    data: {
+        labels: line1Labels, // Assuming all three datasets have the same dates
+        datasets: [
+            {
+                label: 'Stock Quantities',
+                data: line1Data,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+            },
+            {
+                label: 'User Count',
+                data: line2Data,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                fill: true,
+            },
+            {
+                label: 'Authorized Assets',
+                data: line3Data,
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                fill: true,
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+        },
+        scales: {
+            x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Expiry Date'
+                }
+            },
+            y: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Quantity / Count'
+                }
+            }
+        }
+    }
+});
+
+console.log('Line 1 Data:', line1Data);
+console.log('Line 2 Data:', line2Data);
+console.log('Line 3 Data:', line3Data);
+</script>
 
 //table
 <script>
