@@ -172,52 +172,7 @@
   <!-- Top tiles -->
   
         <div class="row" style="display: inline-block;">
-            <div class="tile_count">
-              <div class="col-md-2 col-sm-4 tile_stats_count">
-                  <span class="count_top"><i class="fa fa-users" style="color: blue; font-size: 20px;"></i> 
-                  <span style="color: blue; font-size: 18px; font-weight: bold;">Total Users</span>
-                  <div class="count">{{ $totalUserCount }}</div> <!-- Display total user count here -->
-                  <span class="count_bottom">
-                  <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}"><i class="fa {{ $percentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i>{{ abs($percentageChange) }}%</i> From last Week
-                 </span>
-               </div>
-                <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-archive" style="color: brown; font-size: 20px;"></i> 
-                    <span style="color: brown; font-size: 18px; font-weight: bold;">Total Stocks</span>
-                    <div class="count">{{ $totalStockCount }}</div>
-                    <span class="count_bottom">
-                      <i class="{{ $stockPercentageChange >= 0 ? 'green' : 'red' }}">
-                      <i class="fa {{ $stockPercentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i>{{ abs($stockPercentageChange) }}% </i> From last Week 
-                    </span>
-                </div>
-                <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-shield" style="color: green; font-size: 20px;"></i> 
-                    <span style="color: green; font-size: 18px; font-weight: bold;">Authorized Asset</span>
-                    <div class="count green">{{ $totalVerifiedCount }}</div>
-                    <span class="count_bottom"> 
-                      <i class="{{ $verifiedPercentageChange >= 0 ? 'green' : 'red' }}">
-                      <i class="fa {{ $verifiedPercentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i> {{ abs($verifiedPercentageChange) }}%</i> From last Week
-                    </span>
-                </div>
-                <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-truck" style="color: orange; font-size: 20px;"></i> 
-                    <span style="color: orange; font-size: 18px; font-weight: bold;">Dispatch Assets</span>
-                    <div class="count">{{ $totalDispatchCount }}</div>
-                    <span class="count_bottom">
-                      <i class="{{ $dispatchPercentageChange >= 0 ? 'green' : 'red' }}">
-                     <i class="fa {{ $dispatchPercentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i> {{ abs($dispatchPercentageChange) }}%</i> From last Week
-                   </span>
-                </div>
-                <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-desktop" style="color: tomato; font-size: 20px;"></i> 
-                    <span style="color: tomato; font-size: 18px; font-weight: bold;"> IT Assets</span>
-                    <div class="count">{{ $totalInstalledCount}}</div>
-                    <span class="count_bottom">
-                      <i class="{{ $installedPercentageChange >= 0 ? 'green' : 'red' }}">
-                      <i class="fa {{ $installedPercentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i> {{ abs($installedPercentageChange) }}%</i> From last Week
-                    </span>
-                </div>
-            </div>
+            
         </div>
  
   <!-- /Top tiles -->
@@ -230,7 +185,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="x_title">
-                    <h2>Stocks Types Distribution</h2>
+                    <h2> Asset Distribution by Category </h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="col-md-12 col-sm-12">
@@ -247,7 +202,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="x_title">
-                    <h2>Asset Types Distribution</h2>
+                    <h2> Usage Purpose of Assets </h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="col-md-12 col-sm-12">
@@ -259,17 +214,41 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <!-- Card for Asset Distribution by Branch -->
+    <div class="col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="x_title">Asset Distribution by Branch</h2>
+                <canvas id="assetsByBranchChart" class="bar-chart" ></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card for Stock Levels by Category -->
+    <div class="col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="x_title">Stock Levels by Category</h2>
+                <canvas id="stockLevelsByCategoryChart" class="bar-chart" ></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <div class="col-md-12 col-sm-12">
     <div class="card">
         <div class="card-body">
             <div class="x_title">
-                <h2> Comparison of Stocks, Users, and Authorized Assets</h2>
+                <h2> Comparison of Asset Trends</h2>
                 <div class="clearfix"></div>
             </div>
             <div class="col-md-12 col-sm-12">
                 <div>
-                    <canvas id="lineChart" class="line-chart" width="100" height="33"></canvas>
+                    <canvas id="lineChart"  width="300" height="100"></canvas>
                 </div>
             </div>
         </div>
@@ -287,29 +266,31 @@
                     <div class="clearfix"></div>
                 </div>
 
-                <!-- DataTables Initialization -->
-                <table id="assetsTable" class="display table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Branch</th>
-                            <th>Item Type</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                            <th>Damage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($assets as $asset)
-                        <tr>
-                            <td>{{ $asset->allocation }}</td>
-                            <td>{{ $asset->item_type }}</td>
-                            <td>{{ $asset->quantity }}</td>
-                            <td>{{ $asset->status }}</td>
-                            <td>{{ $asset->damage }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+<table id="assetsTable" class="display table-bordered">
+    <thead>
+        <tr>
+            <th style="background-color: #bccad6;">Branch No</th> <!-- Light Gray Blue -->
+            <th style="background-color: #8d9db6;">Asset No</th> <!-- Medium Gray Blue -->
+            <th style="background-color: #667292;">Branch</th> <!-- Dark Gray Blue -->
+            <th style="background-color: #b2c2bf;">Release To</th> <!-- Light Blue -->
+            <th style="background-color: #b7d7e8;">Receive Status</th> <!-- Light Blue Green -->
+            <th style="background-color: #87bdd8;">Action</th> <!-- Medium Blue Green -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($assets as $asset)
+        <tr>
+            <td style="background-color: #bccad6;">{{ $asset->BranchNo }}</td>
+            <td style="background-color: #8d9db6;">{{ $asset->AssetNo }}</td>
+            <td style="background-color: #667292;">{{ $asset->Branch }}</td>
+            <td style="background-color: #b2c2bf;">{{ $asset->ReleaseTo }}</td>
+            <td style="background-color: #b7d7e8;">{{ $asset->ReceiveStatus }}</td>
+            <td style="background-color: #87bdd8;">{{ $asset->Action }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
             </div>
         </div>
     </div>
@@ -318,66 +299,16 @@
 </div>
 <!-- /page content -->
 
-    <!-- jQuery -->
-    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+   <!-- Correct Script Loading Order -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
 
-    <!-- popper.js-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"></script>
-
-    <!-- Bootstrap -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
-
-    <!-- FastClick -->
-    <script src="{{ asset('assets/js/fastclick.js') }}"></script>
-    <!-- NProgress -->
-    <script src="{{ asset('assets/js/nprogress.js') }}"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-    
-    <!-- gauge.js -->
-    <script src="{{ asset('assets/js/gauge.min.js') }}"></script>
-
-    <!-- Bootstrap Progressbar -->
-    <script src="{{ asset('assets/js/bootstrap-progressbar.min.js') }}"></script>
-
-    <!-- iCheck -->
-    <script src="{{ asset('assets/js/icheck.min.js') }}"></script>
-
-    <!-- Skycons -->
-    <script src="{{ asset('assets/js/skycons.js') }}"></script>
-
-    <!-- Flot -->
-    <script src="{{ asset('assets/js/jquery.flot.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.flot.pie.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.flot.time.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.flot.stack.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.flot.resize.js') }}"></script>
-
-    <!-- Flot Plugins -->
-    <script src="{{ asset('assets/js/jquery.flot.orderBars.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.flot.spline.min.js') }}"></script>
-    <script src="{{ asset('assets/js/curvedLines.js') }}"></script>
-
-    <!-- DateJS -->
-    <script src="{{ asset('assets/js/date.js') }}"></script>
-
-    <!-- JQVMap -->
-    <script src="{{ asset('assets/js/jquery.vmap.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.vmap.world.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.vmap.sampledata.js') }}"></script>
-
-    <!-- Bootstrap Daterangepicker -->
-    <script src="{{ asset('assets/js/moment.min.js') }}"></script>
-    <script src="{{ asset('assets/js/daterangepicker.js') }}"></script>
-
-    <!-- DataTables JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
-    <!-- Custom Theme Scripts -->
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
 
 
 <script>
@@ -406,18 +337,18 @@ const stockTypePieChart = new Chart(ctx1, {
             label: 'Quantity',
             data: data1,
             backgroundColor: [
-              "#455C73", 
-              "#483D8B", 
-              "#191970", 
-              "#000080", 
-              "#002366"
+              "#8BC1F7", // --pf-v5-chart-color-blue-100
+              "#519DE9", // --pf-v5-chart-color-blue-200
+              "#06C",    // --pf-v5-chart-color-blue-300
+              "#004B95", // --pf-v5-chart-color-blue-400
+              "#002F5D"  // --pf-v5-chart-color-blue-500
             ],
             borderColor: [
-              "#455C73", 
-              "#483D8B", 
-              "#191970", 
-              "#000080", 
-              "#002366"
+              "#8BC1F7", // --pf-v5-chart-color-blue-100
+              "#519DE9", // --pf-v5-chart-color-blue-200
+              "#06C",    // --pf-v5-chart-color-blue-300
+              "#004B95", // --pf-v5-chart-color-blue-400
+              "#002F5D"  // --pf-v5-chart-color-blue-500
             ],
             borderWidth: 1
         }]
@@ -438,7 +369,7 @@ const stockTypePieChart = new Chart(ctx1, {
             datalabels: {
                 color: '#fff',
                 formatter: (value, context) => {
-                    return  `${value}%`;
+                    return `${value}%`;
                 },
                 anchor: 'center',
                 align: 'center',
@@ -461,18 +392,18 @@ const assetTypePieChart = new Chart(ctx2, {
             label: 'Quantity',
             data: data2,
             backgroundColor: [
-              "#36A2EB", 
-              "#87CEEB", 
-              "#4169E1", 
-              "#4682B4", 
-              "#1E90FF"
+              "#A2D9D9", // --pf-v5-chart-color-cyan-100
+              "#73C5C5", // --pf-v5-chart-color-cyan-200
+              "#009596", // --pf-v5-chart-color-cyan-300
+              "#005F60", // --pf-v5-chart-color-cyan-400
+              "#003737"  // --pf-v5-chart-color-cyan-500
             ],
             borderColor: [
-              "#36A2EB", 
-              "#87CEEB", 
-              "#4169E1", 
-              "#4682B4", 
-              "#1E90FF"
+              "#A2D9D9", // --pf-v5-chart-color-cyan-100
+              "#73C5C5", // --pf-v5-chart-color-cyan-200
+              "#009596", // --pf-v5-chart-color-cyan-300
+              "#005F60", // --pf-v5-chart-color-cyan-400
+              "#003737"  // --pf-v5-chart-color-cyan-500
             ],
             borderWidth: 1
         }]
@@ -506,10 +437,151 @@ const assetTypePieChart = new Chart(ctx2, {
     plugins: [ChartDataLabels] // Add the datalabels plugin here
 });
 
-    </script>
+</script>
 
 <script>
-   // Extract data for the three lines
+    // Assuming you have already passed $branches, $quantitiesByBranch, $categories, and $quantitiesByCategory to this view
+    const branches = @json($branches);
+    const quantitiesByBranch = @json($quantitiesByBranch);
+    const categories = @json($categories);
+    const quantitiesByCategory = @json($quantitiesByCategory);
+    
+    console.log('Branches Data:', branches);
+    console.log('Quantities by Branch:', quantitiesByBranch);
+    console.log('Categories Data:', categories);
+    console.log('Quantities by Category:', quantitiesByCategory);
+
+ 
+// Chart for Asset Distribution by Branch
+const ctx3 = document.getElementById('assetsByBranchChart').getContext('2d');
+const assetsByBranchChart = new Chart(ctx3, {
+    type: 'bar',
+    data: {
+        labels: branches,
+        datasets: [{
+            label: 'Total Quantity',
+            data: quantitiesByBranch,
+            backgroundColor: [
+              "#BDE2B9", // --pf-v5-chart-color-green-100
+              "#7CC674", // --pf-v5-chart-color-green-200
+              "#4CB140", // --pf-v5-chart-color-green-300
+              "#38812F", // --pf-v5-chart-color-green-400
+              "#23511E"  // --pf-v5-chart-color-green-500
+            ],
+            borderColor: [
+              "#BDE2B9", // --pf-v5-chart-color-green-100
+              "#7CC674", // --pf-v5-chart-color-green-200
+              "#4CB140", // --pf-v5-chart-color-green-300
+              "#38812F", // --pf-v5-chart-color-green-400
+              "#23511E"  // --pf-v5-chart-color-green-500
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+});
+// Chart for Stock Levels by Category
+const ctx4 = document.getElementById('stockLevelsByCategoryChart').getContext('2d');
+const stockLevelsByCategoryChart = new Chart(ctx4, {
+    type: 'bar',
+    data: {
+        labels: categories,
+        datasets: [{
+            label: 'Total Quantity',
+            data: quantitiesByCategory,
+            backgroundColor: [
+              "#B2B0EA", // --pf-v5-chart-color-purple-100
+              "#8481DD", // --pf-v5-chart-color-purple-200
+              "#5752D1", // --pf-v5-chart-color-purple-300
+              "#3C3D99", // --pf-v5-chart-color-purple-400
+              "#2A265F"  // --pf-v5-chart-color-purple-500
+            ],
+            borderColor: [
+              "#B2B0EA", // --pf-v5-chart-color-purple-100
+              "#8481DD", // --pf-v5-chart-color-purple-200
+              "#5752D1", // --pf-v5-chart-color-purple-300
+              "#3C3D99", // --pf-v5-chart-color-purple-400
+              "#2A265F"  // --pf-v5-chart-color-purple-500
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+});
+    // "Trends in Asset Allocation" Line Chart Initialization
+    let allocationDataSets = categories.map(category => {
+        const categoryData = @json($assetAllocationTrends)
+            .filter(item => item.AssetCategory === category)
+            .map(item => item.total_quantity);
+
+        return {
+            label: category,
+            data: categoryData,
+            borderColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`,
+            backgroundColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.2)`,
+            fill: true
+        };
+    });
+
+    const ctxAllocation = document.getElementById('assetAllocationTrendsChart').getContext('2d');
+    const allocationChart = new Chart(ctxAllocation, {
+        type: 'line',
+        data: {
+            labels: allocationDates,
+            datasets: allocationDataSets
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top'
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Quantity'
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
+<script>
+// Extract data for the three lines
 const line1Labels = @json($line1Data->pluck('date'));
 const line1Data = @json($line1Data->pluck('total'));
 const line2Data = @json($line2Data->pluck('total'));
@@ -523,24 +595,24 @@ const lineChart = new Chart(ctxLine, {
         labels: line1Labels, // Assuming all three datasets have the same dates
         datasets: [
             {
-                label: 'Stock Quantities',
+                label: 'Total Quantity',
                 data: line1Data,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: '#06C', // Blue
+                backgroundColor: 'rgba(6, 108, 204, 0.2)', // Blue with transparency
                 fill: true,
             },
             {
-                label: 'User Count',
+                label: 'Asset Categories Total',
                 data: line2Data,
-                borderColor: 'rgba(255, 99, 132, 1)',
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: '#E12200', // Red
+                backgroundColor: 'rgba(225, 34, 0, 0.2)', // Red with transparency
                 fill: true,
             },
             {
-                label: 'Authorized Assets',
+                label: 'Asset Classes Total',
                 data: line3Data,
-                borderColor: 'rgba(54, 162, 235, 1)',
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: '#F0AB00', // Yellow
+                backgroundColor: 'rgba(240, 171, 0, 0.2)', // Yellow with transparency
                 fill: true,
             }
         ]
@@ -557,7 +629,7 @@ const lineChart = new Chart(ctxLine, {
                 display: true,
                 title: {
                     display: true,
-                    text: 'Expiry Date'
+                    text: 'Date'
                 }
             },
             y: {
@@ -591,5 +663,20 @@ console.log('Line 3 Data:', line3Data);
 </script>
 
 
+<script>
+        $(document).ready(function() {
+            console.log("jQuery UI loaded:", $.ui);
+            $('.has-tooltip').tooltip();
+        });
+    </script>
+
+
+   <script>
+    $(document).ready(function() {
+    console.log("Checking jQuery UI:", $.ui); // This should log an object if jQuery UI is loaded
+    $('.has-tooltip').tooltip();
+});
+
+   </script>
   </body>
 </html>
