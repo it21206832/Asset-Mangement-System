@@ -25,6 +25,7 @@ class Stock extends Model
             'recive',
             'installation',
             'damage',
+            'code',
         ];
     
         protected $casts = [
