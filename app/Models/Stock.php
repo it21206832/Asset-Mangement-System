@@ -26,6 +26,7 @@ class Stock extends Model
             'installation',
             'damage',
             'code',
+            'allocation_quantitity',
         ];
     
         protected $casts = [

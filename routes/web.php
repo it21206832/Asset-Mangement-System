@@ -19,8 +19,12 @@ Route::middleware('auth')->group(function () {
    
 
 Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['admin'])->name('dashboard');
+Route::get('/dashboard/showAssets/{id}', [DashboardController::class, 'showAssets'])->name('dashboard.showAssets');
 
 Route::get('branchDashbord', [branchDashboard::class, 'branch'])->middleware(['branch'])->name('branchDashbord');
+Route::get('/branchDashbord/verify/{assetNo}', [branchDashboard::class, 'verify'])->name('branchDashbord.verify');
+Route::get('/branchDashbord/showAssets/{assetNo}', [branchDashboard::class, 'showAssets'])->name('branchDashbord.showAssets');
+
 
 
 });

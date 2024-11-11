@@ -1,0 +1,512 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot");
+  src: url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.woff") format("woff"), url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular") format("svg"); }
+
+  .container {
+    width: 100%;
+    padding: 0;
+    max-width: 100%; }
+  
+  .nav-sm .container.body .col-md-3.left_col {
+    min-height: 100%;
+    width: 70px;
+    padding: 0;
+    z-index: 9999;
+    position: absolute; }
+  
+  .nav-sm .container.body .col-md-3.left_col.menu_fixed {
+    position: fixed;
+    height: 100%; }
+  
+  .nav-sm .container.body .col-md-3.left_col .mCSB_container,
+  .nav-sm .container.body .col-md-3.left_col .mCustomScrollBox {
+    overflow: visible; }
+  
+  .nav-sm .hidden-small {
+    visibility: hidden; }
+  
+  .nav-sm .container.body .right_col {
+    padding: 10px 20px;
+    margin-left: 70px;
+    z-index: 2; }
+  
+  .nav-sm .navbar.nav_title {
+    width: 70px; }
+  
+  .nav-sm .navbar.nav_title a span {
+    display: none; }
+  
+  .nav-sm .navbar.nav_title a i {
+    font-size: 27px;
+    margin: 13px 0 0 3px; }
+  
+  .site_title i {
+    border: 1px solid #EAEAEA;
+    padding: 5px 6px;
+    border-radius: 50%; }
+  
+  .nav-sm .main_container .top_nav {
+    display: block;
+    margin-left: 70px;
+    z-index: 2; }
+  
+  .nav-sm .nav.side-menu li a {
+    text-align: center !important;
+    font-weight: 400;
+    font-size: 10px;
+    padding: 10px 5px; }
+  
+  .nav-sm .nav.child_menu li.active,
+  .nav-sm .nav.side-menu li.active-sm {
+    border-right: 5px solid #1ABB9C; }
+  
+  .nav-sm ul.nav.child_menu ul,
+  .nav-sm .nav.side-menu li.active-sm ul ul {
+    position: static;
+    width: 200px;
+    background: none; }
+  
+  .nav-sm > .nav.side-menu > li.active-sm > a {
+    color: #1ABB9C !important; }
+  
+  .nav-sm .nav.side-menu li a i.toggle-up {
+    display: none !important; }
+  
+  .nav-sm .nav.side-menu li a i {
+    font-size: 25px !important;
+    text-align: center;
+    width: 100% !important;
+    margin-bottom: 5px; }
+  
+  .nav-sm ul.nav.child_menu {
+    left: 100%;
+    position: absolute;
+    top: 0;
+    width: 210px;
+    z-index: 4000;
+    background: #3E5367;
+    display: none; }
+  
+  .nav-sm ul.nav.child_menu li {
+    padding: 0 10px; }
+  
+  .nav-sm ul.nav.child_menu li a {
+    text-align: left !important; }
+  
+  .nav-sm .profile {
+    display: none; }
+  
+  .menu_section {
+    margin-bottom: 35px; }
+  
+  .menu_section h3 {
+    padding-left: 23px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    font-weight: bold;
+    font-size: 11px;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-shadow: 1px 1px #000; }
+  
+  .menu_section > ul {
+    margin-top: 10px;
+    display: block; }
+  
+  .profile_pic {
+    width: 35%;
+    float: left; }
+  
+  .img-circle.profile_img {
+    width: 70%;
+    background: #fff;
+    margin-left: 15%;
+    z-index: 1000;
+    position: inherit;
+    margin-top: 20px;
+    border: 1px solid rgba(52, 73, 94, 0.44);
+    padding: 4px; }
+  
+  .profile_info {
+    padding: 25px 10px 10px;
+    width: 65%;
+    float: left; }
+  
+  .profile_info span {
+    font-size: 13px;
+    line-height: 30px;
+    color: #BAB8B8; }
+  
+  .profile_info h2 {
+    font-size: 14px;
+    color: #ECF0F1;
+    margin: 0;
+    font-weight: 300; }
+  
+  .profile.img_2 {
+    text-align: center; }
+  
+  .profile.img_2 .profile_pic {
+    width: 100%; }
+  
+  .profile.img_2 .profile_pic .img-circle.profile_img {
+    width: 50%;
+    margin: 10px 0 0; }
+  
+  .profile.img_2 .profile_info {
+    padding: 15px 10px 0;
+    width: 100%;
+    margin-bottom: 10px;
+    float: left; }
+  
+  .main_menu span.fa {
+    float: right;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 10px;
+    min-width: inherit;
+    color: #C4CFDA; }
+  
+  .active a span.fa {
+    text-align: right !important;
+    margin-right: 4px; }
+  
+  .nav-sm .menu_section {
+    margin: 0; }
+  
+  .nav-sm span.fa,
+  .nav-sm .menu_section h3 {
+    display: none; }
+  
+  .nav-sm li li span.fa {
+    display: inline-block; }
+  
+  .nav_menu {
+    float: left;
+    background: #EDEDED;
+    border-bottom: 1px solid #D9DEE4;
+    margin-bottom: 10px;
+    width: 100%;
+    position: relative; }
+  
+  .info-number .badge {
+    font-size: 10px;
+    font-weight: normal;
+    line-height: 13px;
+    padding: 2px 6px;
+    position: absolute;
+    right: -2px;
+    top: -8px; }
+  
+  @media (min-width: 480px) {
+    .nav_menu {
+      position: static; }
+    .item {
+      display: block; } }
+  
+  .nav-md .container.body .col-md-3.left_col {
+    min-height: 100%;
+    width: 230px;
+    padding: 0;
+    position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    z-index: 1; }
+  
+  .nav-md .container.body .col-md-3.left_col.menu_fixed {
+    height: 100%;
+    position: fixed; }
+  
+  body .container.body .right_col {
+    background: #F7F7F7; }
+  
+  .nav-md .container.body .right_col {
+    padding: 10px 20px 0;
+    margin-left: 230px; }
+  
+  .nav_title {
+    width: 230px;
+    float: left;
+    background: #2A3F54;
+    border-radius: 0;
+    height: 57px;
+    padding: 0px; 
+  }
+  
+  @media (max-width: 991px) {
+    .nav-md .container.body .right_col, .nav-md .container.body .top_nav {
+      width: 100%;
+      margin: 0; }
+    .nav-md .container.body .col-md-3.left_col {
+      display: none; }
+    .nav-md .container.body .right_col {
+      width: 100%;
+      padding-right: 0; }
+    .right_col {
+      padding: 10px !important; }
+    .item {
+      display: block; } }
+  
+  @media (max-width: 1200px) {
+    .x_title h2 {
+      width: 62%;
+      font-size: 17px; }
+    .tile, .graph {
+      zoom: 76%;
+      height: inherit; }
+    .item {
+      display: block; } }
+  
+  @media (max-width: 1270px) and (min-width: 192px) {
+    .x_title h2 small {
+      display: none; } }
+  
+  .left_col .mCSB_scrollTools {
+    width: 6px; }
+  
+  .left_col .mCSB_dragger {
+    max-height: 400px !important; }
+  
+  .tile_count .tile_stats_count {
+    margin-bottom: 20px;
+    margin-right: 15px;
+    margin-left: 18px;
+    text-align: center;
+    padding: 10px;
+    
+  }
+  
+  .tile_count .tile_stats_count .count {
+    font-size: 30px;
+    color: #5A738E;
+  }
+  
+  .tile_count .tile_stats_count .count_top {
+    font-size: 16px;
+    color: #5A738E;
+  }
+  
+  .pie-chart {
+    width: 65%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+
+  
+  .progress {
+    height: 10px;
+    margin-bottom: 10px;
+    background-color: #D9DEE4;
+  }
+  
+  .progress-bar {
+    height: 10px;
+  }
+  
+  .progress-bar.bg-green {
+    background-color: #26B99A;
+  }
+  
+
+/*table*/
+.display {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse; 
+}
+
+
+.display th , .td {
+  padding: 8px;
+  text-align: left;
+  color: #ffffff;
+  
+  
+}
+
+
+.display td {
+ 
+  color: #000000;
+ 
+}
+
+/* Optional: Ensure no border on tbody if needed */
+.display tbody tr {
+  border: none; /* Remove border from table rows */
+}
+  
+/* Search and Show Entries Styling */
+.dataTables_wrapper .dataTables_filter label,
+.dataTables_wrapper .dataTables_length label {
+    font-weight: bold;
+    color: #444;
+}
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin-left: 5px;
+    border-radius: 4px;
+}
+.dataTables_wrapper .dataTables_length select {
+    margin: 0 5px;
+    border-radius: 4px;
+}
+
+
+/*card*/
+  .card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin: 5px 10px;
+      padding: 1px, 2px;
+      
+      
+  }
+
+  .card-body {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 5px;/* Custom styling for DataTable pagination */
+    .dataTables_paginate {
+        margin-top: 20px;               /* Add spacing at the top */
+        padding: 10px;                  /* Padding around pagination buttons */
+        border-radius: 8px;             /* Rounded corners for the container */
+    } 
+  }
+      /* Styling for individual pagination buttons */
+      .dataTables_paginate .paginate_button {
+        color: #ffffff;                    /* Dark text color */
+        background-color: #435acc;      /* Light background for buttons */
+        border: 1px solid #ccc;         /* Border around each button */
+        padding: 5px 10px;              /* Padding within buttons */
+        margin: 0 5px;                  /* Space between buttons */
+        border-radius: 4px;             /* Rounded corners for buttons */
+        cursor: pointer;                /* Pointer cursor for better UX */
+        transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    }
+    
+    /* Hover effect for pagination buttons */
+    .dataTables_paginate .paginate_button:hover {
+        background-color: #c9d6df;      /* Slightly darker on hover */
+        color: #000;                    /* Darker font on hover */
+    }
+
+/* Parent container to handle flex layout */
+.tile_count {
+  display: flex;
+  flex-wrap: nowrap;  /* Prevent wrapping */
+  justify-content: center; /* Center the entire row */
+  gap: 15px; /* Add more space between tiles */
+  width: 100%; /* Ensure the container takes up full width */
+  margin: 0 auto;
+  margin-left: 10px; /* Center the entire tile row */
+}
+
+/* Individual tiles */
+.tile_stats_count {
+  flex: 1 0 18%; /* Each tile takes up a set percentage */
+  background: #ffffff;
+  padding: 40px; /* Adjust padding to make tiles more compact */
+  margin: 0 1.5%; /* Adjusted margin between tiles */
+  text-align: center; /* Center the text inside the tile */
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ensures the text inside the tiles stays within the tile boundaries */
+.count_top, .count, .count_bottom {
+  width: 100%; 
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1200px) {
+  .tile_stats_count {
+      flex: 1 0 100%; /* Full width on smaller screens */
+      margin-bottom: 10px; /* Adds bottom margin for stacked layout */
+  }
+}
+
+/* Further responsiveness for very small screens */
+@media (max-width: 768px) {
+  .tile_count {
+      flex-direction: column;
+  }
+
+  .tile_stats_count {
+      margin-bottom: 20px;
+  }
+}
+
+.bar-chart{
+  width: 100px;
+  height: 100px;
+  
+}
+
+.custom-alert {
+  max-width: 500px; 
+  margin: 20px auto; 
+  font-size: 1.1rem; 
+  text-align: center;
+  background-color: #d4edda; 
+  color: #000000; 
+  border-color: #c3e6cb; 
+  
+}
+
+
+ /* Style the logout button */
+.logout-button {
+        padding: 8px 12px;
+        font-size: 14px;
+        color: #fff;
+        background-color: #4375ff; 
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+ }
+   
+ .logout-button:hover {
+        background-color: #0734b9; 
+}
+
+/* Style for the menu toggle link */
+.menu-toggle {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #191eaa;
+}
+
+/* Style for the menu icon */
+.menu-toggle .menu-icon {
+  font-size: 24px;
+  color: #0c2a7b;
+  margin-right: 8px; /* Space between icon and branch name */
+  transition: color 0.3s;
+}
+.menu-toggle .menu-icon:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+/* Style for the branch name */
+.branch-name {
+  margin-left: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #706d6d;
+}
+

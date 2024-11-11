@@ -14,11 +14,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
-    <!-- bootstrap-daterangepicker -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <!-- Custom Theme Style -->
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/branchCustom.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/branchCustom.css') }}">
 
   </head>
 
@@ -125,113 +123,132 @@
           </div>
         </div>
 
-        <!-- top navigation -->
-        <div class="top_nav">
-          <div class="nav_menu">
-          <div class="nav toggle">
-              <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              <h2 class="branch-manager">Branch Manager</h2>
-          </div>
-
-              <nav class="nav navbar-nav">
-              <ul class=" navbar-right">
-                <li class="nav-item dropdown open" style="padding-left: 15px;">
-                     <!-- Settings Dropdown -->
-                <div class="hidden sm:flex sm:items-center sm:ms-6">
-                    <div>{{ Auth::user()->name }}</div>
-                    <div>{{ Auth::user()->branch->branch_name }}</div>
-                      <!-- Authentication -->
-                      <form method="POST" action="{{ route('logout') }}">
-                          @csrf
-                          <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                              {{ __('Log Out') }}
-                          </button>
-                      </form>
-                  </button>
-               </div>
-                </li>        
-              </ul>
-            </nav>
-          </div>
+ <!-- Top navigation -->
+<div class="top_nav">
+    <div class="nav_menu">
+        <div class="nav toggle">
+            <a id="menu_toggle " class="menu-toggle">
+                <i class="fa fa-bars menu-icon"></i>
+                <span class="branch-name">{{ __('Branch Dashboard') }} </span>
+            </a>
         </div>
-        <!-- /top navigation -->
+        <nav class="nav navbar-nav">
+            <ul class="navbar-right">
+                <li class="nav-item dropdown open" style="padding-left: 15px;">
+                    <div class="hidden sm:flex sm:items-center sm:ms-6">
+                        <!-- Authentication Logout Button -->
+                        <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                              <div>
+                                  <strong>{{ Auth::user()->name }}</strong> - 
+                                  <span>{{ Auth::user()->branch?->branch_name ?? 'Head Office' }}</span>
+                              </div>
+                           @csrf
+                            <button type="submit" class="logout-button">
+                                {{ __('Log Out') }}
+                            </button>
+                        </form>
+                    </div>
+                </li>              
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- /top navigation -->
 
 <!-- Page content -->
 <div class="right_col" role="main">
+
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
+        {{ session('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
+
+
   <!-- Top tiles -->
-  <div class="card">
-    <div class="card-body">
+  
         <div class="row" style="display: inline-block;">
             <div class="tile_count">
-                <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
-                    <div class="count">2500</div>
-                    <span class="count_bottom"><i class="green">4% </i> From last Week</span>
-                </div>
-                <div class="col-md-2 col-sm-4 tile_stats_count">
-                  <span class="count_top"><i class="fa fa-clock-o"></i> Total Stocks</span>
-                  <div class="count">{{ $totalStockCount }}</div> 
+              <div class="col-md-2 col-sm-4 tile_stats_count">
+                  <span class="count_top"><i class="fa fa-users" style="color: blue; font-size: 20px;"></i> 
+                  <span style="color: blue; font-size: 18px; font-weight: bold;">Total Users</span>
+                  <div class="count">{{ $totalUserCount }}</div> 
                   <span class="count_bottom">
-                      <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}">
-                          <i class="fa fa-sort-{{ $percentageChange >= 0 ? 'asc' : 'desc' }}"></i>
-                          {{ number_format($percentageChange, 0) }}%
-                      </i> 
-                      From last Month
+                        <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}">
+                            <i class="fa fa-sort-{{ $percentageChange >= 0 ? 'asc' : 'desc' }}"></i>
+                            {{ number_format($percentageChange, 0) }}%
+                        </i> 
+                        From last Month
                   </span>
-              </div>
+               </div>
+                <div class="col-md-2 col-sm-4 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-archive" style="color: brown; font-size: 20px;"></i> 
+                    <span style="color: brown; font-size: 18px; font-weight: bold;">Total Stocks</span>
+                    <div class="count">{{ $totalStockCount }}</div>
+                    <span class="count_bottom">
+                        <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}">
+                            <i class="fa fa-sort-{{ $percentageChange >= 0 ? 'asc' : 'desc' }}"></i>
+                            {{ number_format($percentageChange, 0) }}%
+                        </i> 
+                        From last Month
+                    </span>
+                </div>
 
                 <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> Total Authorized Asset</span>
+                    <span class="count_top"><i class="fa fa-truck" style="color: orange; font-size: 20px;"></i> 
+                    <span style="color: orange; font-size: 18px; font-weight: bold;">Total Assets</span>
+                    <div class="count">{{ $totalAseetCount }}</div>
+                    <span class="count_bottom">
+                        <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}">
+                            <i class="fa fa-sort-{{ $percentageChange >= 0 ? 'asc' : 'desc' }}"></i>
+                            {{ number_format($percentageChange, 0) }}%
+                        </i> 
+                        From last Month
+                    </span>
+                </div>
+
+                <div class="col-md-2 col-sm-4 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-shield" style="color: green; font-size: 20px;"></i> 
+                    <span style="color: green; font-size: 15px; font-weight: bold;">Authorized Assets</span>
                     <div class="count green">{{ $totalVerifiedCount }}</div>
-                    <span class="count_bottom">                    
-                      <i class="{{ $AuthorizedpercentageChange >= 0 ? 'green' : 'red' }}">
-                          <i class="fa fa-sort-{{ $AuthorizedpercentageChange >= 0 ? 'asc' : 'desc' }}"></i>
-                          {{ number_format($AuthorizedpercentageChange, 0) }}%
-                      </i>  From last Week</span>
+                    <span class="count_bottom">
+                        <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}">
+                            <i class="fa fa-sort-{{ $percentageChange >= 0 ? 'asc' : 'desc' }}"></i>
+                            {{ number_format($percentageChange, 0) }}%
+                        </i> 
+                        From last Month
+                    </span>
                 </div>
+
                 <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> Total Dispatch Assets</span>
-                    <div class="count">{{ $totalDispatchCount }}</div>
-                    <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
-                </div>
-                <div class="col-md-2 col-sm-4 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> IT Installation Assets</span>
+                    <span class="count_top"><i class="fa fa-desktop" style="color: tomato; font-size: 20px;"></i> 
+                    <span style="color: tomato; font-size: 18px; font-weight: bold;"> IT Assets</span>
                     <div class="count">{{ $totalInstalledCount}}</div>
-                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                    <span class="count_bottom">
+                        <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}">
+                            <i class="fa fa-sort-{{ $percentageChange >= 0 ? 'asc' : 'desc' }}"></i>
+                            {{ number_format($percentageChange, 0) }}%
+                        </i> 
+                        From last Month
+                    </span>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
+ 
   <!-- /Top tiles -->
-
-
-  
+            
   <div class="row">
-    <!-- Card for Stocks Types Distribution -->
-    <div class="col-md-6 col-sm-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="x_title">
-                    <h2>Stocks Types Distribution</h2>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="col-md-12 col-sm-12">
-                    <div>
-                        <canvas id="stockTypePieChart" class="pie-chart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Card for Asset Types Distribution -->
+    <!--  Asset Types Distribution pie chart -->
     <div class="col-md-6 col-sm-12">
         <div class="card">
             <div class="card-body">
                 <div class="x_title">
-                    <h2>Asset Types Distribution</h2>
+                    <h2> Asset Distribution by Category </h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="col-md-12 col-sm-12">
@@ -242,12 +259,71 @@
             </div>
         </div>
     </div>
+
+    <!-- Usage Purpose of Assets  pie chart -->
+    <div class="col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="x_title">
+                    <h2> Usage Purpose of Assets </h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <div>
+                        <canvas id="usageTypePieChart" class="pie-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    
+    <!-- Verified Asset Distribution-->
+    <div class="col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="x_title"> Verified Asset Distribution </h2>
+                <canvas id="verifiedAssetsChart" class="bar-chart" ></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Damage Assets Distribution -->
+    <div class="col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="x_title">Damage Assets Distribution</h2>
+                <canvas id="damageAssetChart" class="bar-chart" ></canvas>
+            </div>
+        </div>
+    </div>
 </div>
 
 
-   
-<div class="row">
-    <!-- Card for Branch Asset Distribution -->
+ <!-- Line chart -->
+
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="x_title">
+                <h2> Comparison of Asset Trends</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <div>
+                    <canvas id="lineChart"  width="300" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Table -->   
+
+
+
+<div class="row">   
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
@@ -256,29 +332,41 @@
                     <div class="clearfix"></div>
                 </div>
 
-                <!-- DataTables Initialization -->
-                <table id="assetsTable" class="display ">
-                    <thead>
-                        <tr>
-                            <th>Branch</th>
-                            <th>Item Type</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                            <th>Damage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($assets as $asset)
-                        <tr>
-                            <td>{{ $asset->allocation }}</td>
-                            <td>{{ $asset->item_type }}</td>
-                            <td>{{ $asset->quantity }}</td>
-                            <td>{{ $asset->status }}</td>
-                            <td>{{ $asset->damage }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+<table id="assetsTable" class="display table-bordered">
+    <thead>
+        <tr>
+            <th style="background-color: #519DE9;">Branch No</th> <!-- Light Gray Blue -->
+            <th style="background-color: #52616b;">Asset No</th> <!-- Dark Slate Gray -->
+            <th style="background-color: #1e2022;">Receive Status</th> <!-- Very Dark Gray -->
+            <th style="background-color: #004B95;">Status</th> <!-- Light Blue -->
+            <th style="background-color: #3b6978;">View</th> <!-- Teal Blue -->
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($assets as $asset)
+        <tr>
+            <td >{{ $asset->BranchNo }}</td>
+            <td >{{ $asset->AssetNo }}</td>
+            <td >{{ $asset->ReceiveStatus }}</td>
+            <td>
+                @if($asset->Action == 'Unverified')
+                    <span class="badge badge-danger">Unverified</span>
+                @else
+                    <span class="badge badge-success">Verified</span>
+                @endif
+            </td>
+            <td>
+            <!-- View button with a data attribute for the asset details -->
+            <button type="button" class="btn btn-info view-asset" data-assetNo="{{ $asset->AssetNo }}" data-toggle="modal" data-target="#assetModal">
+                View
+            </button>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
             </div>
         </div>
     </div>
@@ -287,31 +375,73 @@
 </div>
 <!-- /page content -->
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <!-- popper.js-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="{{ asset('assets/js/custom_ams.js') }}"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<!-- Asset Details Modal -->
+<div class="modal fade" id="assetModal" tabindex="-1" role="dialog" aria-labelledby="assetModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assetModalLabel">Asset Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Asset No:</strong> <span id="modalAssetNo"></span></p>
+                <p><strong>Asset Category:</strong> <span id="modalAssetCategory"></span></p>
+                <p><strong>Asset Class:</strong> <span id="modalAssetClass"></span></p>
+                <p><strong>Brand:</strong> <span id="modalBrand"></span></p>
+                <p><strong>Model:</strong> <span id="modalModel"></span></p>
+                <p><strong>Serial Number:</strong> <span id="modalSerialNumber"></span></p>
+                <p><strong>Purchase Date:</strong> <span id="modalPurchaseDate"></span></p>
+                <p><strong>Procurement Date:</strong> <span id="modalProcurementDate"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
     
-    
-    // Pie chart
 
-    <script>
-      const labels1 = @json($Slabels);
-      const data1 = @json($Sdata);
-      const labels2 = @json($Alabels);
-      const data2 = @json($Adata);
-    </script>
-    
+   <!-- Script  -->
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script src="{{ asset('assets/js/branch_custom.min.js') }}"></script>
+<script src="{{ asset('assets/js/branch_custom.js') }}"></script>
+
+
+
+<script>
+    // Data for the asset pie chart
+    const labels1 = @json($Slabels);
+    const data1 = @json($Sdata);     
+
+    // Data for the  usage pie chart
+    const labels2 = @json($Alabels); 
+    const data2 = @json($Adata);     
+
+    // Data for the  verified assets bar chart
+    const verifiedcategories = @json($verifiedcategories);
+    const quantitiesByCategory = @json($quantitiesByCategory);
+
+    // Data for the  damage assets bar chart
+    const damagecategories= @json($damagecategories);
+    const damagequantities = @json($damagequantities);
+
+    // Extract data for the three lines
+    const line1Labels = @json($line1Data->pluck('date'));
+    const line1Data = @json($line1Data->pluck('total'));
+    const line2Data = @json($line2Data->pluck('total'));
+    const line3Data = @json($line3Data->pluck('total'));
+
+   
+</script>
 
   </body>
+
 </html>

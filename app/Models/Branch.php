@@ -12,6 +12,12 @@ class Branch extends Model
     protected $fillable = [
         'BranchCode',
         'branch_name',
+        'stocks',
+        'assets',
+        'verifyAssets',
+        'unVerifyAssets',
+        'installedAssets',
+        'damageAssets',
     ];
 
     public function users()
@@ -19,3 +25,11 @@ class Branch extends Model
         return $this->hasMany(User::class, 'BranchCode', 'BranchCode');
     }
 }
+
+
+
+
+
+
+
+

@@ -24,12 +24,33 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
-
-        $request->session()->regenerate();
-
-        return redirect()->intended(route('dashboard', absolute: false));
+        // Validate login request (assuming LoginRequest is already validating required fields)
+        // If not, you can validate manually:
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+    
+        // Attempt authentication
+        if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
+            $request->session()->regenerate();
+    
+            // Redirect based on user type
+            if (Auth::user()->userType == 'Admin') {
+                return redirect()->intended('dashboard');
+            } elseif (Auth::user()->userType == 'Branch') {
+                return redirect()->intended('branchDashbord');
+            }
+    
+            return redirect()->intended('/'); // Default redirection
+        }
+    
+        // Handle login failure
+        return back()->withErrors([
+            'email' => __('auth.failed'),
+        ]);
     }
+    
 
     /**
      * Destroy an authenticated session.

@@ -28,15 +28,18 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'userType' => ['required', 'string'],
-            'BranchCode' => ['required_if:userType,Branch', 'string'], 
-        ]);
+{
+    // Validate incoming request
+    $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        'userType' => ['required', 'string'],
+        'BranchCode' => ['required_if:userType,Branch', 'string'], 
+    ]);
 
+    // Attempt to create the user
+    try {
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -44,11 +47,29 @@ class RegisteredUserController extends Controller
             'userType' => $request->userType,
             'BranchCode' => $request->BranchCode,
         ]);
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+    } catch (\Exception $e) {
+        \Log::error('User creation failed: ' . $e->getMessage());
+        return back()->withErrors(['registration' => 'Failed to register user. Please try again.']);
     }
+
+    // Fire the Registered event
+    event(new Registered($user));
+
+    // Log in the user
+    Auth::login($user);
+
+    // Log the user type for debugging
+    $userType = Auth::user()->userType;
+    \Log::info('User logged in with type:', [$userType]);
+
+    // Redirect based on user type
+    if ($userType == 'Admin') {
+        return redirect()->intended('dashboard');
+    } elseif ($userType == 'Branch') {
+        return redirect()->intended('branchDashbord');
+    }
+
+    return redirect()->intended('/'); // Default redirection
+}
+
 }

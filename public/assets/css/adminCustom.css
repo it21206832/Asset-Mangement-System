@@ -5,7 +5,7 @@
   src: url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.woff") format("woff"), url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular") format("svg"); }
 
   .container {
-    width: 100%;
+    width: 100%;;
     padding: 0;
     max-width: 100%; }
   
@@ -183,13 +183,16 @@
   
   .nav-sm li li span.fa {
     display: inline-block; }
+
+
   
   .nav_menu {
     float: left;
     background: #EDEDED;
     border-bottom: 1px solid #D9DEE4;
     margin-bottom: 10px;
-    width: 100%;
+    margin-left: 228px;
+    width: 83%;
     position: relative; }
   
   .info-number .badge {
@@ -273,7 +276,7 @@
   
   .tile_count .tile_stats_count {
     margin-bottom: 20px;
-    margin-right: 15px;
+    margin-right: 10px;
     margin-left: 18px;
     text-align: center;
     padding: 10px;
@@ -316,28 +319,25 @@
 .display {
   width: 100%;
   margin-top: 10px;
-  border-collapse: collapse; 
+  border-collapse: collapse;
+  
 }
 
 
 .display th , .td {
   padding: 8px;
   text-align: left;
-  color: blue;
-  border-bottom:1px solid rgb(184, 180, 180); 
-  
+  color: #ffffff;
+  border-color: #6677b9; 
+  width: 100px;
 }
 
 
 .display td {
  
-  color: #000000;
+  color: #595757;
+  border-color: #6677b9; 
  
-}
-
-/* Optional: Ensure no border on tbody if needed */
-.display tbody tr {
-  border: none; /* Remove border from table rows */
 }
 
 
@@ -347,17 +347,54 @@
       border: 1px solid #ddd;
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      margin: 5px 10px;
+      margin: 20px 10px;
       padding: 1px, 2px;
-      
-      
+     
   }
 
   .card-body {
     margin-top: 3px;
     margin-bottom: 3px;
-    padding: 5px;
+    padding: 10px;
   }
+
+   /* Styling for individual pagination buttons */
+   .dataTables_paginate .paginate_button {
+    color: #ffffff;                    /* Dark text color */
+    background-color: #435acc;      /* Light background for buttons */
+    border: 1px solid #ccc;         /* Border around each button */
+    padding: 5px 10px;              /* Padding within buttons */
+    margin: 0 5px;                  /* Space between buttons */
+    border-radius: 4px;             /* Rounded corners for buttons */
+    cursor: pointer;                /* Pointer cursor for better UX */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+/* Hover effect for pagination buttons */
+.dataTables_paginate .paginate_button:hover {
+    background-color: #c9d6df;      /* Slightly darker on hover */
+    color: #000;                    /* Darker font on hover */
+}
+
+/* Basic style for sorting icons */
+table.dataTable thead .sorting {
+  background: url('https://cdn.datatables.net/1.10.25/images/sort_both.png') no-repeat center right;
+  cursor: pointer;
+}
+
+table.dataTable thead .sorting_asc {
+  background: url('https://cdn.datatables.net/1.10.25/images/sort_asc.png') no-repeat center right;
+}
+
+table.dataTable thead .sorting_desc {
+  background: url('https://cdn.datatables.net/1.10.25/images/sort_desc.png') no-repeat center right;
+}
+
+/* Optional: Adjust padding for better alignment */
+table.dataTable thead th {
+  padding-right: 25px; /* Extra space for icons */
+}
+
 
 /* Parent container to handle flex layout */
 .tile_count {
@@ -367,7 +404,8 @@
   gap: 15px; /* Add more space between tiles */
   width: 100%; /* Ensure the container takes up full width */
   margin: 0 auto;
-  margin-left: 40px; /* Center the entire tile row */
+  margin-left: 20px; /* Center the entire tile row */
+  margin-right: 5px;
 }
 
 /* Individual tiles */
@@ -409,8 +447,47 @@
   }
 }
 
-.bar-chart{
-  width: 100px;
-  height: 100px;
-  
+
+ /* Style the logout button */
+ .logout-button {
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #4375ff; 
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
+
+.logout-button:hover {
+  background-color: #0734b9; 
+}
+
+/* Style for the menu toggle link */
+.menu-toggle {
+display: flex;
+align-items: center;
+text-decoration: none;
+color: #191eaa;
+}
+
+/* Style for the menu icon */
+.menu-toggle .menu-icon {
+font-size: 24px;
+color: #0c2a7b;
+margin-right: 8px; 
+transition: color 0.3s;
+}
+.menu-toggle .menu-icon:hover {
+color: #007bff; 
+}
+
+/* Style for the branch name */
+.branch-name {
+margin-left: 5px;
+font-size: 16px;
+font-weight: 500;
+color: #706d6d;
+}
+

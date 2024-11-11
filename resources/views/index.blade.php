@@ -14,24 +14,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
-
-    <!-- NProgress -->
-    <link rel="stylesheet" href="{{ asset('assets/css/nprogress.css') }}">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="{{ asset('assets/css/green.css') }}">
-	
-    <!-- bootstrap-progressbar -->
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-progressbar-3.3.4.min.css') }}">
-    <!-- JQVMap -->
-     <link rel="stylesheet" href="{{ asset('assets/css/jqvmap.min.css') }} ">
-
-    <!-- bootstrap-daterangepicker -->
-    <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.css') }}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-
     <!-- Custom Theme Style -->
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/adminCustom.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/adminCustom.css') }}">
   </head>
 
   <body class="nav-md">
@@ -133,37 +118,41 @@
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
-            <!-- /menu footer buttons -->
           </div>
         </div>
+        <!-- /menu footer buttons -->
 
-        <!-- top navigation -->
-        <div class="top_nav">
-          <div class="nav_menu">
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-              <nav class="nav navbar-nav">
-              <ul class=" navbar-right">
+        <!-- Top navigation -->
+<div class="top_nav">
+    <div class="nav_menu">
+        <div class="nav toggle">
+            <a id="menu_toggle " class="menu-toggle" >
+                <i class="fa fa-bars menu-icon"></i>
+                <span class="branch-name">{{ __('Admin Dashboard') }} </span>
+            </a>
+        </div>
+        <nav class="nav navbar-nav">
+            <ul class="navbar-right">
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
-                  <a href="javascript:;" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-
-                    <div>{{ Auth::user()->name }}</div>
-                  </a>
-                  <form method="POST" action="{{ route('logout') }}">
-                          @csrf
-                          <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                              {{ __('Log Out') }}
-                          </button>
-                  </form>
-                </li>
-
-                
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <!-- /top navigation -->
+                    <div class="hidden sm:flex sm:items-center sm:ms-6">
+                        <!-- Authentication Logout Button -->
+                        <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                              <div>
+                                  <strong>{{ Auth::user()->name }}</strong> - 
+                                  <span>{{ Auth::user()->branch?->branch_name ?? 'Head Office' }}</span>
+                              </div>
+                           @csrf
+                            <button type="submit" class="logout-button">
+                                {{ __('Log Out') }}
+                            </button>
+                        </form>
+                    </div>
+                </li>              
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- /top navigation -->
 
 <!-- Page content -->
 <div class="right_col" role="main">
@@ -176,25 +165,35 @@
                   <span style="color: blue; font-size: 18px; font-weight: bold;">Total Users</span>
                   <div class="count">{{ $totalUserCount }}</div> <!-- Display total user count here -->
                   <span class="count_bottom">
-                  <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}"><i class="fa {{ $percentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i>{{ abs($percentageChange) }}%</i> From last Week
-                 </span>
+                        <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}">
+                            <i class="fa fa-sort-{{ $percentageChange >= 0 ? 'asc' : 'desc' }}"></i>
+                            {{ number_format($percentageChange, 0) }}%
+                        </i> 
+                        From last Month
+                  </span>
                </div>
                 <div class="col-md-2 col-sm-4 tile_stats_count">
                     <span class="count_top"><i class="fa fa-archive" style="color: brown; font-size: 20px;"></i> 
                     <span style="color: brown; font-size: 18px; font-weight: bold;">Total Stocks</span>
                     <div class="count">{{ $totalStockCount }}</div>
                     <span class="count_bottom">
-                      <i class="{{ $stockPercentageChange >= 0 ? 'green' : 'red' }}">
-                      <i class="fa {{ $stockPercentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i>{{ abs($stockPercentageChange) }}% </i> From last Week 
+                        <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}">
+                            <i class="fa fa-sort-{{ $percentageChange >= 0 ? 'asc' : 'desc' }}"></i>
+                            {{ number_format($percentageChange, 0) }}%
+                        </i> 
+                        From last Month
                     </span>
                 </div>
                 <div class="col-md-2 col-sm-4 tile_stats_count">
                     <span class="count_top"><i class="fa fa-shield" style="color: green; font-size: 20px;"></i> 
                     <span style="color: green; font-size: 18px; font-weight: bold;">Authorized Asset</span>
                     <div class="count green">{{ $totalVerifiedCount }}</div>
-                    <span class="count_bottom"> 
-                      <i class="{{ $verifiedPercentageChange >= 0 ? 'green' : 'red' }}">
-                      <i class="fa {{ $verifiedPercentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i> {{ abs($verifiedPercentageChange) }}%</i> From last Week
+                    <span class="count_bottom">
+                        <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}">
+                            <i class="fa fa-sort-{{ $percentageChange >= 0 ? 'asc' : 'desc' }}"></i>
+                            {{ number_format($percentageChange, 0) }}%
+                        </i> 
+                        From last Month
                     </span>
                 </div>
                 <div class="col-md-2 col-sm-4 tile_stats_count">
@@ -202,17 +201,23 @@
                     <span style="color: orange; font-size: 18px; font-weight: bold;">Dispatch Assets</span>
                     <div class="count">{{ $totalDispatchCount }}</div>
                     <span class="count_bottom">
-                      <i class="{{ $dispatchPercentageChange >= 0 ? 'green' : 'red' }}">
-                     <i class="fa {{ $dispatchPercentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i> {{ abs($dispatchPercentageChange) }}%</i> From last Week
-                   </span>
+                        <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}">
+                            <i class="fa fa-sort-{{ $percentageChange >= 0 ? 'asc' : 'desc' }}"></i>
+                            {{ number_format($percentageChange, 0) }}%
+                        </i> 
+                        From last Month
+                    </span>
                 </div>
                 <div class="col-md-2 col-sm-4 tile_stats_count">
                     <span class="count_top"><i class="fa fa-desktop" style="color: tomato; font-size: 20px;"></i> 
                     <span style="color: tomato; font-size: 18px; font-weight: bold;"> IT Assets</span>
                     <div class="count">{{ $totalInstalledCount}}</div>
                     <span class="count_bottom">
-                      <i class="{{ $installedPercentageChange >= 0 ? 'green' : 'red' }}">
-                      <i class="fa {{ $installedPercentageChange >= 0 ? 'fa-sort-asc' : 'fa-sort-desc' }}"></i> {{ abs($installedPercentageChange) }}%</i> From last Week
+                        <i class="{{ $percentageChange >= 0 ? 'green' : 'red' }}">
+                            <i class="fa fa-sort-{{ $percentageChange >= 0 ? 'asc' : 'desc' }}"></i>
+                            {{ number_format($percentageChange, 0) }}%
+                        </i> 
+                        From last Month
                     </span>
                 </div>
             </div>
@@ -221,9 +226,8 @@
   <!-- /Top tiles -->
 
 
-  
+  <!-- Card for Stocks Types Distribution --> 
   <div class="row">
-    <!-- Card for Stocks Types Distribution -->
     <div class="col-md-6 col-sm-12">
         <div class="card">
             <div class="card-body">
@@ -257,7 +261,9 @@
         </div>
     </div>
 </div>
+    
 
+ <!-- Comparison of Stocks, Users, and Authorized Assets -->
 <div class="col-md-12 col-sm-12">
     <div class="card">
         <div class="card-body">
@@ -274,9 +280,10 @@
     </div>
 </div>
 
-   
+ 
+<!-- DataTables Initialization -->
+
 <div class="row">
-    <!-- Card for Branch Asset Distribution -->
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
@@ -285,25 +292,35 @@
                     <div class="clearfix"></div>
                 </div>
 
-                <!-- DataTables Initialization -->
                 <table id="assetsTable" class="display table-bordered">
                     <thead>
                         <tr>
-                            <th>Branch</th>
-                            <th>Item Type</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                            <th>Damage</th>
+                        <th style="background-color: #1a2e72;">Asset No</th>
+                        <th style="background-color: #335c9b;">Status</th>
+                        <th style="background-color: #204a8b;">Branch</th>
+                        <th style="background-color: #183a6b;">Allocation Quantity</th>
+                        <th style="background-color: #5278b1;">View</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($assets as $asset)
                         <tr>
-                            <td>{{ $asset->allocation }}</td>
-                            <td>{{ $asset->item_type }}</td>
-                            <td>{{ $asset->quantity }}</td>
+                            <td>{{ $asset->id }}</td>
                             <td>{{ $asset->status }}</td>
-                            <td>{{ $asset->damage }}</td>
+                            <td>{{ $asset->allocation }}</td>
+                            <td>{{ $asset->	allocation_quantitity }}</td>
+                            <td>
+                            <!-- View button with a data attribute for the asset details -->
+                            <button 
+                                type="button" 
+                                class="btn btn-info view-asset" 
+                                data-id="{{ $asset->id }}" 
+                                data-toggle="modal" 
+                                data-target="#assetModal">
+                                View
+                            </button>
+
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -314,280 +331,68 @@
 </div>  
 </div>  
 </div>
-<!-- /page content -->
+<!-- page content -->
+
+<!-- Modal Structure -->
+<div class="modal fade" id="assetModal" tabindex="-1" role="dialog" aria-labelledby="assetModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assetModalLabel">Asset Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Item Name:</strong> <span id="modalItemName">{{ $asset->item_name }}</span></p>
+                <p><strong>Item Code:</strong> <span id="modalItemCode">{{ $asset->item_code }}</span></p>
+                <p><strong>Item Type:</strong> <span id="modalItemType">{{ $asset->item_type }}</span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- jQuery -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-
     <!-- popper.js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"></script>
-
     <!-- Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
-
-    <!-- FastClick -->
-    <script src="{{ asset('assets/js/fastclick.js') }}"></script>
-    <!-- NProgress -->
-    <script src="{{ asset('assets/js/nprogress.js') }}"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-    
-    <!-- gauge.js -->
-    <script src="{{ asset('assets/js/gauge.min.js') }}"></script>
-
-    <!-- Bootstrap Progressbar -->
-    <script src="{{ asset('assets/js/bootstrap-progressbar.min.js') }}"></script>
-
-    <!-- iCheck -->
-    <script src="{{ asset('assets/js/icheck.min.js') }}"></script>
-
-    <!-- Skycons -->
-    <script src="{{ asset('assets/js/skycons.js') }}"></script>
-
-    <!-- Flot -->
-    <script src="{{ asset('assets/js/jquery.flot.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.flot.pie.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.flot.time.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.flot.stack.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.flot.resize.js') }}"></script>
-
-    <!-- Flot Plugins -->
-    <script src="{{ asset('assets/js/jquery.flot.orderBars.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.flot.spline.min.js') }}"></script>
-    <script src="{{ asset('assets/js/curvedLines.js') }}"></script>
-
     <!-- DateJS -->
     <script src="{{ asset('assets/js/date.js') }}"></script>
-
-    <!-- JQVMap -->
-    <script src="{{ asset('assets/js/jquery.vmap.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.vmap.world.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.vmap.sampledata.js') }}"></script>
-
-    <!-- Bootstrap Daterangepicker -->
-    <script src="{{ asset('assets/js/moment.min.js') }}"></script>
-    <script src="{{ asset('assets/js/daterangepicker.js') }}"></script>
-
     <!-- DataTables JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
     <!-- Custom Theme Scripts -->
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script src="{{ asset('assets/js/admin_custom.js') }}"></script>
+    <script src="{{ asset('assets/js/admin_custom.min.js') }}"></script>
+   
 
 
 <script>
-    // Data for the stock pie chart
-    const labels1 = @json($Slabels);
-    const data1 = @json($Sdata);     
 
-    // Data for the asset pie chart
-    const labels2 = @json($Alabels); 
-    const data2 = @json($Adata);     
+// Data for the stock pie chart
+const labels1 = @json($Slabels);
+const data1 = @json($Sdata);     
 
-    // Check if the data is correctly passed from PHP
-    console.log('First Chart Labels:', labels1);
-    console.log('First Chart Data:', data1);
-    console.log('Second Chart Labels:', labels2);
-    console.log('Second Chart Data:', data2);
-    
+// Data for the asset pie chart
+const labels2 = @json($Alabels); 
+const data2 = @json($Adata);     
 
-// Get context for the stock pie chart
-const ctx1 = document.getElementById('stockTypePieChart').getContext('2d');
-const stockTypePieChart = new Chart(ctx1, {
-    type: 'pie',
-    data: {
-        labels: labels1,
-        datasets: [{
-            label: 'Quantity',
-            data: data1,
-            backgroundColor: [
-              "#455C73", 
-              "#483D8B", 
-              "#191970", 
-              "#000080", 
-              "#002366"
-            ],
-            borderColor: [
-              "#455C73", 
-              "#483D8B", 
-              "#191970", 
-              "#000080", 
-              "#002366"
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'right',
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(tooltipItem) {
-                        return tooltipItem.label + ': ' + tooltipItem.raw;
-                    }
-                }
-            },
-            datalabels: {
-                color: '#fff',
-                formatter: (value, context) => {
-                    return  `${value}%`;
-                },
-                anchor: 'center',
-                align: 'center',
-                font: {
-                    weight: 'bold'
-                }
-            }
-        }
-    },
-    plugins: [ChartDataLabels] // Add the datalabels plugin here
-});
-
-// Get context for the asset doughnut chart
-const ctx2 = document.getElementById('assetTypePieChart').getContext('2d');
-const assetTypePieChart = new Chart(ctx2, {
-    type: 'doughnut',
-    data: {
-        labels: labels2,
-        datasets: [{
-            label: 'Quantity',
-            data: data2,
-            backgroundColor: [
-              "#36A2EB", 
-              "#87CEEB", 
-              "#4169E1", 
-              "#4682B4", 
-              "#1E90FF"
-            ],
-            borderColor: [
-              "#36A2EB", 
-              "#87CEEB", 
-              "#4169E1", 
-              "#4682B4", 
-              "#1E90FF"
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'right',
-            },
-            tooltip: {
-                callbacks: {
-                    label: function(tooltipItem) {
-                        return tooltipItem.label + ': ' + tooltipItem.raw;
-                    }
-                }
-            },
-            datalabels: {
-                color: '#fff',
-                formatter: (value, context) => {
-                    return value;
-                },
-                anchor: 'center',
-                align: 'center',
-                font: {
-                    weight: 'bold'
-                }
-            }
-        }
-    },
-    plugins: [ChartDataLabels] // Add the datalabels plugin here
-});
-
-    </script>
-
-<script>
-   // Extract data for the three lines
-const line1Labels = @json($line1Data->pluck('date'));
+// Extract data for the three lines
+const line1Labels = @json($line1Data->pluck('month'));
 const line1Data = @json($line1Data->pluck('total'));
 const line2Data = @json($line2Data->pluck('total'));
 const line3Data = @json($line3Data->pluck('total'));
 
-// Set up the line chart
-const ctxLine = document.getElementById('lineChart').getContext('2d');
-const lineChart = new Chart(ctxLine, {
-    type: 'line',
-    data: {
-        labels: line1Labels, // Assuming all three datasets have the same dates
-        datasets: [
-            {
-                label: 'Stock Quantities',
-                data: line1Data,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                fill: true,
-            },
-            {
-                label: 'User Count',
-                data: line2Data,
-                borderColor: 'rgba(255, 99, 132, 1)',
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                fill: true,
-            },
-            {
-                label: 'Authorized Assets',
-                data: line3Data,
-                borderColor: 'rgba(54, 162, 235, 1)',
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                fill: true,
-            }
-        ]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-        },
-        scales: {
-            x: {
-                display: true,
-                title: {
-                    display: true,
-                    text: 'Expiry Date'
-                }
-            },
-            y: {
-                display: true,
-                title: {
-                    display: true,
-                    text: 'Quantity / Count'
-                }
-            }
-        }
-    }
-});
-
-console.log('Line 1 Data:', line1Data);
-console.log('Line 2 Data:', line2Data);
-console.log('Line 3 Data:', line3Data);
 </script>
 
-//table
-<script>
-    $(document).ready(function() {
-        $('#assetsTable').DataTable({
-            "paging": true,       // Enable pagination
-            "searching": true,    // Enable search functionality
-            "ordering": true,     // Enable column sorting
-            "info": true,         // Show information about the table
-            "autoWidth": false,   // Disable automatic column width calculation
-            "lengthChange": true  // Allow users to change the number of rows displayed
-        });
-    });
-</script>
+ </body>
 
-
-  </body>
 </html>

@@ -32,9 +32,9 @@
                 <x-input-label for="branchCode" :value="__('Branch Code')" />
                 <select id="branchCode" class="block mt-1 w-full" name="branchCode">
                     <option value="">{{ __('Select Branch Code') }}</option>
-                    <option value="B001">{{ __('B001 - Colombo') }}</option>
-                    <option value="B002">{{ __('B002 - Ambalangoda') }}</option>
-                    <option value="B003">{{ __('B003 - Galle') }}</option>
+                    <option value="101">{{ __('101 - Colombo') }}</option>
+                    <option value="102">{{ __('102 - Ambalangoda') }}</option>
+                    <option value="103">{{ __('103 - Galle') }}</option>
                 </select>
                 <x-input-error :messages="$errors->get('branchCode')" class="mt-2" />
             </div>
